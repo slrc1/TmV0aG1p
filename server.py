@@ -30,7 +30,7 @@ def handle(self,client,client_address):
             dtz = xtz.split('=')
             if len(dtz) == 2:
                 dt[dtz[0]] = dtz[1]
-        firebase.post('/',{data:dt})    
+        firebase.post('/',data})    
         res = res+'Content-Type: text/plain\r\n'
         res = res+'\r\n'+data
     except Exception as e:
