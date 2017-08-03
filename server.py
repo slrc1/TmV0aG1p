@@ -23,7 +23,7 @@ def handle(self,client,client_address):
     res = 'HTTP/1.1 200 OK\r\n'
     try:
         path = req.split(" ",3)[1][1:]
-        data = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        data = datetime.datetime.now().strftime("%I:%M:S:f%p on %B %d, %Y")
         xt = path[2:].split('&')
         dt = dict()
         for xtz in xt:
