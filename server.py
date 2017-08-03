@@ -23,14 +23,17 @@ def handle(self,client,client_address):
     res = 'HTTP/1.1 200 OK\r\n'
     try:
         path = req.split(" ",3)[1][1:]
-        data = datetime.datetime.now().strftime("%I:%M:S:f%p on %B %d, %Y")
+        data = datetime.datetime.now().strftime("%I:%M:%S:%f%p on %B %d, %Y")
         xt = path[2:].split('&')
         dt = dict()
         for xtz in xt:
             dtz = xtz.split('=')
             if len(dtz) == 2:
                 dt[dtz[0]] = dtz[1]
-        firebase.post('/',data)    
+        if dt['date']:
+            data = [data,dt['date']];
+        dt['date'] = data
+        firebase.post('/',dt)
         res = res+'Content-Type: text/plain\r\n'
         res = res+'\r\n'+data
     except Exception as e:
